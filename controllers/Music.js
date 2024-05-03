@@ -1,5 +1,7 @@
 //const data = require('../models/data.json')
 const Music = require('../models/Music')
+const fs = require('fs');
+const path = require('path');
 const controllerMusic = {
 
     // /music & /music?search=    Afficher toute les musiques, ou afficher les musiques qui contiennent le titre recherché
@@ -65,6 +67,21 @@ find: async (req, res) => {
         const idMusic = req.params.id
         const data = await Music.destroy({where : {id: idMusic}})                       //DB
         res.status(200).json({ success: 'Song is deleted' })
+    },
+        
+            downloadCover: (req, res) => {
+        const fileName = req.params.fileName;
+        const directory = req.params.directory;
+        if (directory !== "cover" && directory !== "music") {
+            return res.status(400).json({ error: "Directory not exist ! It's cover or music" });
+        }
+        const filePath = path.resolve(`./upload/${directory}/${fileName}`);
+        if (fs.existsSync(filePath)) {
+            // Envoyer le fichier au client sans le télécharger
+            return res.sendFile(filePath);
+        } else {
+            return res.status(404).json({ error: "File not found" });
+        }
     }
 
 }
