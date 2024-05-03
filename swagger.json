@@ -1,0 +1,215 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Music API",
+    "version": "1.0.0",
+    "description": "API for managing musics"
+  },
+  "paths": {
+    "/api/v1/": {
+      "get": {
+        "summary": "Receive a welcome message with GET",
+        "responses": {
+          "200": {
+            "description": "Welcome message",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": "Welcome to API in GET!"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Receive a welcome message with POST",
+        "responses": {
+          "200": {
+            "description": "Welcome message",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": "Welcome to API in POST!"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/music": {
+      "get": {
+        "summary": "Get all musics",
+        "responses": {
+          "200": {
+            "description": "List of musics, and the all the musics in the database (here is an example of a music)",
+            "content": {
+              "application/json": {
+                "example": {
+                  "result": { 
+                    
+                        "id": 1,
+                        "artiste": "Da Uzi",
+                        "cover": "Architecte.jpg",
+                        "sound": "Architecte.mp3",
+                        "title": "Architecte",
+                        "category": "RnB"
+                }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new music",
+        "requestBody": {
+          "required": true,
+          "description": "Enter the music details",
+          "content": {
+            "application/json": {
+              "example": {
+                "id": "123",
+                "artiste": "Artist Name",
+                "cover": "cover.jpg",
+                "sound": "sound.mp3",
+                "title": "Song Title",
+                "category": "category"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Music was created successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "result": { 
+                    "success": "Song is created"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      
+    },
+    "/api/v1/music/{id}": {
+      "get": {
+        "summary": "Get music by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the music to retrieve",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Music find",
+            "content": {
+              "application/json": {
+                "example": {
+                  "result": { 
+                    "id": 1,
+                    "artiste": "Da Uzi",
+                    "cover": "Architecte.jpg",
+                    "sound": "Architecte.mp3",
+                    "title": "Architecte",
+                    "category": "RnB"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Don't use text for id"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "ID not found ..."
+                }
+              }
+            }
+          }
+        }
+        
+      }
+    },
+    "/api/v1/music!random": {
+      "get": {
+        "summary": "Get a random music",
+        "responses": {
+          "200": {
+            "description": "Random music data",
+            "content": {
+              "application/json": {
+                "example": {
+                  "result":
+                  {
+                    "id": 12,
+                    "artiste": "Gims",
+                    "cover": "gims-jusquici.jpeg",
+                    "sound": "gims-jusquici.mp3",
+                    "title": "Jusqu'ici tout va bien",
+                    "category": "r"
+                }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Data Schema Music ": {
+        
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "artist": {
+              "type": "string"
+            },
+            "cover": {
+              "type": "string",
+              "extensions": "jpg|jpeg|png"
+            },
+            "sound": {
+              "type": "string",
+              "extensions": "mp3"
+            },
+            "title": {
+              "type": "string"
+            },
+            "category": {
+              "type": "string"
+            }
+          },
+          "required": ["id", "artist", "cover", "sound", "title", "category"]
+        }
+        
+      }
+    }
+  }
+
