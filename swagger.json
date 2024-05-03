@@ -70,7 +70,6 @@
           "content": {
             "application/json": {
               "example": {
-                "id": "123",
                 "artiste": "Artist Name",
                 "cover": "cover.jpg",
                 "sound": "sound.mp3",
