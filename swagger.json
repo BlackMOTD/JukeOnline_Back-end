@@ -97,7 +97,7 @@
       }
       
     },
-    "/api/v1/music/{id}": {
+    "/api/v1/music!{id}": {
       "get": {
         "summary": "Get music by ID",
         "parameters": [
@@ -113,7 +113,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Music find",
+            "description": "Music found",
             "content": {
               "application/json": {
                 "example": {
@@ -150,10 +150,36 @@
             }
           }
         }
-        
+      },
+      "delete": {
+        "summary": "Delete music by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the music to delete",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Music deleted",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": "Song is deleted"
+                }
+              }
+            }
+          }
+        }
       }
     },
-    "/api/v1/music!random": {
+    
+    "/api/v1/music/random": {
       "get": {
         "summary": "Get a random music",
         "responses": {
@@ -177,7 +203,57 @@
           }
         }
       }
+    },
+    "/api/v1/upload/{directory}/{fileName}": {
+      "get": {
+        "summary": "Get a cover and music",
+        "parameters": [
+          {
+            "name": "directory",
+            "in": "path",
+            "description": "The directory containing the file",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fileName",
+            "in": "path",
+            "description": "The name of the file",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+
+        ],
+        "responses": {
+          "400": {
+            "description": "No exist",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Directory not exist ! It's cover or music"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No file",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "File not found"
+                }
+              }
+            }
+          }
+        }
+      }
     }
+    
+    
   },
   "components": {
     "schemas": {
