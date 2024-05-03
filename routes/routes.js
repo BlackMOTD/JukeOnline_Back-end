@@ -23,5 +23,7 @@ router.get('/music!', controllerMusic.IdNotFound)
 
 router.get('/music/random', controllerMusic.random)
 
+router.get('/upload/:directory/:fileName', controllerMusic.downloadCover)
+
 
 module.exports = router
